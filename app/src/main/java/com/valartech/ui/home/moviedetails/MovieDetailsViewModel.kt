@@ -25,7 +25,7 @@ constructor(
     val result: MutableLiveData<String> = MutableLiveData()
 
     init {
-        /*result.value = "$arg1 $arg2"*/
+
     }
 
     fun getMovieDetails(id:String,apikey:String) {
@@ -49,4 +49,6 @@ constructor(
 
     private fun OnSignInFail(): (Throwable) -> Unit = { error ->
     }
+
+
 }
