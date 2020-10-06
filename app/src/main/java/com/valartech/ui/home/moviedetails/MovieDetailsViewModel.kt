@@ -29,7 +29,7 @@ constructor(
     }
 
     fun getMovieDetails(id:String,apikey:String) {
-        //showBlockProgressBar()
+        showBlockProgressBar()
         compositeDisposable.add(
             movieDetailsRepository.getMovieDetails(id,apikey)
                 .subscribeOn(schedulerProvider.io())
@@ -41,6 +41,7 @@ constructor(
     }
 
     private fun OnSignInSucess(): (MovieDetails) -> Unit = { moviedetails ->
+        hideBlockProgressBar()
         moviedetailsdata.value = moviedetails
 
 
@@ -48,6 +49,7 @@ constructor(
     }
 
     private fun OnSignInFail(): (Throwable) -> Unit = { error ->
+        shownSnackBarMessage(error.message.toString())
     }
 
 
