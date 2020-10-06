@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Valartech</string>
+
+
+
+
+    <string name="global_error_retry_message">ERROR !! Tap to retry.</string>
+    <string name="global_error_refresh_fail">Refresh failed</string>
+    <string name="api_key">1fe3d02</string>
+
+
+
+    <!--splash screen-->
+    <string name="splash_hello">Hello</string>
+    <string name="splash_version">Version :</string>
+    <string name="splash_version_clicked">Clicked Thx !!</string>
+
+
+
+
+    <!--home screen-->
+    <string name="home_hello">Hello</string>
+    <string name="home_click_me">Click me</string>
+    <string name="home_count_fail">Count Fail !!</string>
+    <string name="home_count_completed">Count completed repeat</string>
+    <string name="starwars">Starwars</string>
+    <string name="filter_search">Filter Search</string>
+
+    <string name="actors">Actors</string>
+    <string name="no_data">Search Movie</string>
+    <string name="global_ok">Ok</string>
+    <string name="global_error_unavailable_network">unavailable network</string>
+    <string name="global_error_server">server error</string>
+
+
+</resources>

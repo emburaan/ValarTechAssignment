@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    tools:context=".ui.movie.MovieActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.valartech.ui.home.search.SearchViewModel" />
+
+        <variable
+            name="searchkeyword"
+            type="CharSequence" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_screen"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_display_black"
+            android:text="@={searchkeyword}"
+            android:textColor="@color/color_primary"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@={searchkeyword}"
+            android:background="@drawable/searchedittext"
+            android:drawableLeft="@drawable/ic_loupe"
+            android:drawablePadding="@dimen/_8sdp"
+            android:hint="@string/filter_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+             />
+
+        <com.valartech.ui.view.CustomProgressBar
+            android:id="@+id/progressNewsContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="@{(viewModel.isEmptyLoading()) ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/swipe_refresh"
+            app:layout_constraintEnd_toEndOf="@+id/swipe_refresh"
+            app:layout_constraintStart_toStartOf="@+id/swipe_refresh"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textNewsError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:onClick="@{(view) ->viewModel.onRetry()}"
+            android:text="@string/no_data"
+            android:visibility="@{(viewModel.isEmptyError()) ? View.VISIBLE : View.INVISIBLE}"            app:layout_constraintBottom_toBottomOf="@+id/swipe_refresh"
+            app:layout_constraintEnd_toEndOf="@+id/swipe_refresh"
+            app:layout_constraintStart_toStartOf="@+id/swipe_refresh"
+            app:layout_constraintTop_toTopOf="@+id/swipe_refresh" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:onRefreshListener="@{() -> viewModel.onRefresh(searchkeyword)}"
+            app:refreshing="@{viewModel.isRefreshing()}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_movielist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:pagedListAdapterData="@{viewModel.movieList}"
+                app:pagedListAdapterState="@{viewModel.getState()}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
